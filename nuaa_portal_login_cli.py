@@ -2,7 +2,7 @@
     功能：  南京航空航天大学校园网nuaa.portal的命令行登录
     作者：  苏瑞辅
     Email： i@suruifu.com
-    附注：  本脚本在完成过程中得到了@的帮助
+    附注：  本脚本在完成过程中得到了@tzrui的帮助
 """
 import requests
 import json
