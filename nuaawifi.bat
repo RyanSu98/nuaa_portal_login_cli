@@ -8,15 +8,16 @@
 setlocal
 chcp 65001 > nul
 
-:: 1. 初始化工号密码
+:: 1. 初始化工号密码 直接在等号后面写就行，不用单引号、双引号、空格
 set NUMBER=
 set PASSWORD=
 
 
 :: 2. 获取内网ip
 for /f "delims=" %%A in ('curl -s "http://222.192.72.253/drcom/chkstatus?callback="') do set "page1_str=%%A"
-set "string1=%page1_str:v46ip=" & set "string2=%"
-set ip=%string2:~3,14%
+powershell -Command " '%page1_str%' | Select-String -Pattern 'v46ip:(.*?),'  | %% {"""$($_.matches.groups[1])"""} " > .nuaawifi.tmp 
+set /p ip= < .nuaawifi.tmp 
+del .nuaawifi.tmp
 
 :: 3. 实现认证登录
 curl -s "http://222.192.72.253:801/eportal/?c=Portal&a=login&login_method=1&user_account=%NUMBER%&user_password=%PASSWORD%&wlan_user_ip=%ip%" > nul
